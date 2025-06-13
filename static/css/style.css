@@ -1,0 +1,320 @@
+/* Importar fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap');
+
+/* Reset de Estilos Básicos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos Gerais */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #F8F8F8;
+    color: #333;
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada de animações */
+}
+
+/* Estilos para o Cabeçalho (Header) */
+header {
+    background-color: #1A1A1A;
+    color: #E0E0E0;
+    padding: 2.5rem 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    margin-bottom: 0.8rem;
+    color: #FFF;
+    letter-spacing: 1.5px; /* Espaçamento entre letras para elegância */
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Estilos para a Seção Principal (Main) */
+main {
+    flex-grow: 1;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Estilos para a Seção de Adição de Projetos (Formulário) */
+.add-project-section {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    padding: 40px;
+    margin-bottom: 50px;
+    text-align: left;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.add-project-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12); /* Sombra mais destacada no hover */
+}
+
+.add-project-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    position: relative; /* Para posicionar o ícone */
+    padding-bottom: 10px; /* Espaço para o underline */
+}
+
+.add-project-section h2::after { /* Adiciona um underline animado */
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #007bff;
+    border-radius: 2px;
+}
+
+/* Estilos para os Grupos de Formulário */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #555;
+    font-size: 1rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #FDFDFD;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+/* Estilo para o Botão de Envio */
+.add-project-section button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Adicionado box-shadow */
+    display: flex; /* Para alinhar o ícone e o texto */
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    width: 100%;
+    margin-top: 30px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Sombra para o botão */
+}
+
+.add-project-section button[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px); /* Levantamento maior no hover */
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4); /* Sombra mais intensa no hover */
+}
+
+.add-project-section button[type="submit"] i { /* Estilo para o ícone no botão */
+    margin-right: 10px; /* Espaço entre ícone e texto */
+    font-size: 1.3rem;
+}
+
+/* Container do Portfólio */
+#portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding-top: 20px;
+    /* Animação de entrada para os cards */
+    animation: fadeIn 1s ease-out forwards;
+    opacity: 0; /* Começa invisível */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilo para cada cartão de projeto */
+.project-card {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    /* Animação para cada card */
+    animation: scaleIn 0.5s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.9);
+    /* Atraso para animação em cascata (feito no JS para cards dinâmicos) */
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.project-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.project-card h2 {
+    font-family: 'Playfair Display', serif;
+    color: #222;
+    margin: 0 20px 10px;
+    font-size: 1.8rem;
+    flex-grow: 1;
+}
+
+.project-card p {
+    margin: 0 20px 20px;
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Estilos para o Rodapé (Footer) */
+footer {
+    background-color: #1A1A1A;
+    color: #E0E0E0;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: auto;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.05);
+}
+
+footer p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Espaço entre o texto e o ícone */
+}
+
+footer i {
+    color: #007bff; /* Cor do ícone no rodapé */
+    font-size: 1.2rem;
+}
+
+/* Responsividade Básica */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.2rem;
+    }
+    header p {
+        font-size: 1rem;
+    }
+    .add-project-section,
+    main { /* Ajuste para o main em telas menores */
+        padding: 20px 15px; /* Reduz o padding em telas menores */
+    }
+    .add-project-section {
+        padding: 30px;
+    }
+    #portfolio-container {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+    }
+    .project-card {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+    header p {
+        font-size: 0.9rem;
+    }
+    .add-project-section h2 {
+        font-size: 1.6rem;
+    }
+    .project-card h2 {
+        font-size: 1.5rem;
+    }
+    .add-project-section button[type="submit"] {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+}
+/* Estilos para mensagens flash */
+.flash-message {
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.flash-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.flash-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.flash-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}

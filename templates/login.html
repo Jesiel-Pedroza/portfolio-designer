@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Portfólio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+        }
+        input {
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 0.7rem;
+            background: #007bff;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .flash-message {
+            margin-bottom: 1rem;
+            padding: 0.7rem;
+            border-radius: 4px;
+        }
+        .flash-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .flash-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .flash-info {
+            background: #cce5ff;
+            color: #004085;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container" role="form" aria-label="Formulário de login">
+            <h1>Login</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form method="POST" aria-label="Formulário de login">
+                <label for="username">Usuário</label>
+                <input type="text" id="username" name="username" required autofocus aria-required="true" />
+                
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" required aria-required="true" />
+                
+                <button type="submit" aria-label="Entrar no sistema">Entrar</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

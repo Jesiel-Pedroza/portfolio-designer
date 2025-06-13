@@ -1,0 +1,2 @@
+Flask>=2.0
+TinyDB>=4.0

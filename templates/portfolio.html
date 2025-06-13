@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfólio de {{ username }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        a.logout {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        a.logout:hover {
+            text-decoration: underline;
+        }
+        .flash-message {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+        }
+        .flash-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .flash-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .flash-info {
+            background: #cce5ff;
+            color: #004085;
+        }
+        .add-button {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .add-button:hover {
+            background: #218838;
+        }
+        .project {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        .project img {
+            max-width: 150px;
+            max-height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+        .project-info {
+            flex: 1;
+        }
+        .project-actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .edit-button {
+            background: #007bff;
+        }
+        .edit-button:hover {
+            background: #0056b3;
+        }
+        .delete-button {
+            background: #dc3545;
+        }
+        .delete-button:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Portfólio de {{ username }}</h1>
+        <a href="{{ url_for('logout') }}" class="logout" aria-label="Fazer logout">Logout</a>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <a href="{{ url_for('editar_projeto', id=0) }}" class="add-button" aria-label="Adicionar novo projeto">+ Adicionar Novo Projeto</a>
+
+    {% for projeto in projetos %}
+        <div class="project" role="region" aria-label="Projeto {{ projeto.title }}">
+            <img src="{{ projeto.image_url }}" alt="Imagem do projeto {{ projeto.title }}" loading="lazy" />
+            <div class="project-info">
+                <h2>{{ projeto.title }}</h2>
+                <p>{{ projeto.description }}</p>
+                {% if projeto.link %}
+                    <p><a href="{{ projeto.link }}" target="_blank" rel="noopener noreferrer">🔗 Acessar Link</a></p>
+                {% endif %}
+            </div>
+            <div class="project-actions">
+                <a href="{{ url_for('editar_projeto', id=projeto.doc_id) }}" class="edit-button" aria-label="Editar projeto {{ projeto.title }}">Editar</a>
+                <a href="{{ url_for('excluir_projeto', id=projeto.doc_id) }}" class="delete-button" onclick="return confirm('Tem certeza que deseja excluir este projeto?');" aria-label="Excluir projeto {{ projeto.title }}">Excluir</a>
+            </div>
+        </div>
+    {% else %}
+        <p>Nenhum projeto cadastrado ainda.</p>
+    {% endfor %}
+</body>
+</html>
